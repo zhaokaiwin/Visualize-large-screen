@@ -1,0 +1,123 @@
+#left {
+  // display: grid;
+  // grid-template-columns: 100%;
+  // grid-template-rows: 33% 33% 33%;
+  // width: 100%;
+  // height: 100%;
+  display: grid;
+  grid-auto-columns: 100%;
+  grid-template-columns: calc(100%);
+  grid-template-rows: 40% 60%;
+  height: 100%;
+  margin: 0 14px 0 0;
+
+  .border-title{
+    font-family: PingFangSC-Semibold;
+    font-size: 14px;
+    color: #BED7FA;
+    letter-spacing: 0;
+    position: absolute;
+    left: 0.1rem;
+    top: 0.7rem;
+  }
+
+  .border-number{
+    font-family: Digital-7Mono;
+    font-size: 34px;
+    color: #FFFFFF;
+    letter-spacing: 1.21px;
+    position: absolute;
+    top: 4.5rem;
+    left: 2.5rem;
+  }
+
+  .border-unit{
+    font-family: PingFangSC-Regular;
+    font-size: 12px;
+    color: #BED7FA;
+    letter-spacing: 0.43px;
+    position: absolute;
+    left: 9.5rem;
+    top: 4rem;
+  }
+
+  .border-tb{
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    position: absolute;
+    left: 2.5rem;
+    top: 7.5rem;
+    float: right;
+  }
+
+  .first-charts-root {
+    position: relative;
+    .one {
+      left: 2rem;
+      top: 14rem;
+    }
+    .two {
+      left: 5rem;
+      bottom: 17rem;
+    }
+    .third {
+      left: 22rem;
+      bottom: 17rem;
+    }
+    .four {
+      right: 10rem;
+      top: 14rem;
+    }
+    .play-one-animation-enter-active {
+      animation: first 0.5s;
+    }
+    .play-one-animation-leave-active {
+      animation: first 0.5s reverse;
+    }
+    @keyframes first {
+      0% {
+        transform: translate(15rem, -1rem) scale(0);
+      }
+      100% {
+        transform: translate(0) scale(1);
+      }
+    }
+    @keyframes second {
+      0% {
+        transform: translate(10rem, 7rem) scale(0);
+      }
+      100% {
+        transform: translate(0) scale(1);
+      }
+    }
+    @keyframes third {
+      0% {
+        transform: translate(-5rem, 7rem) scale(0);
+      }
+      100% {
+        transform: translate(0) scale(1);
+      }
+    }
+    @keyframes four {
+      0% {
+        transform: translate(-10rem, -1rem) scale(0);
+      }
+      100% {
+        transform: translate(0) scale(1);
+      }
+    }
+  }
+}
+
+.heart {
+  animation: heart 1.3s ease-in-out 2.7s infinite alternate;
+}
+@keyframes heart {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(0, 12px);
+  }
+}
