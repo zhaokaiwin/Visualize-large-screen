@@ -29,9 +29,7 @@
                 ';padding:7px 10px;font-weight: bold;color:' +
                 (point.isHighSpeed?yellow_text:green_text)
             "
-          >
-            {{ point.projectName }}
-          </div>
+          >{{ point.projectName }}</div>
         </div>
       </div>
       <div
@@ -62,20 +60,18 @@
                 ';padding:7px 10px;font-weight: bold;color:' +
                 yellow_text
             "
-          >
-            {{ linePoint.projectName }}
-          </div>
+          >{{ linePoint.projectName }}</div>
         </div>
       </div>
     </div>
     <!-- 图例 -->
     <div class="tl-style">
-      <img src="../../assets/center/map/green_point2.png" class="img-style">
+      <img src="../../assets/center/map/green_point2.png" class="img-style" />
       <span class="text-style">项目点</span>
-      <br>
-      <img src="../../assets/center/map/yollow_point2.png" class="img-style">
+      <br />
+      <img src="../../assets/center/map/yollow_point2.png" class="img-style" />
       <span class="text-style">线路项目点</span>
-      <br>
+      <br />
       <div class="line-style"></div>
       <span class="text-style">项目线路</span>
     </div>
@@ -101,7 +97,7 @@ export default {
       //项目线的数据，linePoints存放点的样式和id，lineFeatures为线的features
       linePoints: [],
       dx: 9,
-      dy: 650,
+      dy: 650
       // lineFeatures: null
     };
   },
@@ -124,10 +120,10 @@ export default {
           "esri/Basemap",
           "esri/layers/VectorTileLayer",
           "esri/layers/GeoJSONLayer",
-          "esri/geometry/Point",
+          "esri/geometry/Point"
         ],
         {
-          url: "https://zrzyhghj3.jiaxing.gov.cn/arcgis/api/4.12/dojo/dojo.js",
+          url: "https://zrzyhghj3.jiaxing.gov.cn/arcgis/api/4.12/dojo/dojo.js"
         }
       );
 
@@ -148,16 +144,16 @@ export default {
       //蓝色底图
       const blueBase = new VectorTileLayer({
         url:
-          "http://10.22.230.26//arcgis/rest/services/Hosted/LANTILE/VectorTileServer",
+          "http://10.22.230.26//arcgis/rest/services/Hosted/LANTILE/VectorTileServer"
       });
       //蓝色注解
       const blueZJ = new VectorTileLayer({
         url:
-          "http://10.22.230.26//arcgis/rest/services/Hosted/LANZJTILE/VectorTileServer",
+          "http://10.22.230.26//arcgis/rest/services/Hosted/LANZJTILE/VectorTileServer"
       });
 
       let basemap = new Basemap({
-        baseLayers: [blueBase, blueZJ],
+        baseLayers: [blueBase, blueZJ]
       });
       this.map = new Map({ basemap: basemap, layers: [] });
 
@@ -167,8 +163,8 @@ export default {
         container: "center-map1",
         zoom: 12,
         constraints: {
-          minZoom: 10,
-        },
+          minZoom: 10
+        }
       });
       //等view加载完成，否则取不到spatialReference坐标系
       this.view.when(async () => {
@@ -176,7 +172,7 @@ export default {
         const pt = new Point({
           x: 120.76218324144519,
           y: 30.768808193792755,
-          spatialReference: this.view.spatialReference,
+          spatialReference: this.view.spatialReference
         });
         this.view.center = pt;
         //加载线图层
@@ -209,14 +205,14 @@ export default {
     add_GeoJsonLayer(url, GeoJSONLayer) {
       const layer = new GeoJSONLayer({
         url: url,
-        spatialReference: this.view.spatialReference,
+        spatialReference: this.view.spatialReference
       });
       this.map.layers.add(layer);
     },
     getFeatures(url) {
       try {
         return new Promise((resolve, reject) => {
-          this.http.get(url).then((res) => {
+          this.http.get(url).then(res => {
             if (res.status === 200) {
               resolve(res.data);
             } else {
@@ -237,7 +233,7 @@ export default {
           let mapPoint = new Point({
             x: features[i].geometry.coordinates[0], //后台的经纬度
             y: features[i].geometry.coordinates[1], //后台的经纬度
-            spatialReference: this.view.spatialReference,
+            spatialReference: this.view.spatialReference
           });
           let screenPoint = this.view.toScreen(mapPoint);
           if (screenPoint == null) continue;
@@ -253,7 +249,9 @@ export default {
             x: features[i].geometry.coordinates[0],
             y: features[i].geometry.coordinates[1],
             markerIsShown: true,
-            isHighSpeed: features[i].properties.xmmc.startsWith("嘉兴市市区快速路环线工程")
+            isHighSpeed: features[i].properties.xmmc.startsWith(
+              "嘉兴市市区快速路环线工程"
+            )
           });
         }
       } else {
@@ -271,7 +269,7 @@ export default {
           let mapPoint = new Point({
             x: geometry[0], //后台的经纬度
             y: geometry[1], //后台的经纬度
-            spatialReference: this.view.spatialReference,
+            spatialReference: this.view.spatialReference
           });
           let screenPoint = this.view.toScreen(mapPoint);
           if (screenPoint == null) continue;
@@ -286,7 +284,7 @@ export default {
             toolotipIsShown: i == 0 ? true : false,
             x: geometry[0],
             y: geometry[1],
-            markerIsShown: true,
+            markerIsShown: true
           });
         }
       }
@@ -298,7 +296,7 @@ export default {
           let mapPoint = new Point({
             x: item.x, //后台的经纬度
             y: item.y, //后台的经纬度
-            spatialReference: this.view.spatialReference,
+            spatialReference: this.view.spatialReference
           });
           //得到点的位置
           let screenPoint = this.view.toScreen(mapPoint);
@@ -314,16 +312,16 @@ export default {
       }
     },
     watchDiv() {
-      this.view.watch("extent", (evt) => {
+      this.view.watch("extent", evt => {
         //调整点的位置
         this.changeTransform(this.points.concat(this.linePoints), evt);
       });
     },
     startInterval([...funs]) {
       setInterval(() => {
-        funs.forEach(fun=>{
+        funs.forEach(fun => {
           fun();
-        })
+        });
       }, 10000);
     },
     CarouselForPoint() {
@@ -357,10 +355,10 @@ export default {
       }
     },
     goToTuPu(projectId) {
-      console.log(projectId);
-      window.open(`http://10.10.208.6:7090/Home/Index?prjid=${projectId}`)
-    },
-  },
+      // console.log(projectId);
+      window.open(`http://10.10.208.6:7090/Home/Index?prjid=${projectId}`);
+    }
+  }
 };
 </script>
 
@@ -370,9 +368,9 @@ export default {
   width: 100%;
   height: 96%;
   background-repeat: no-repeat;
-  .tl-style{
-    background: rgba(0,38,74,0.40);
-    box-shadow: inset 0 0 12px 0 rgba(4,160,254,0.40);
+  .tl-style {
+    background: rgba(0, 38, 74, 0.4);
+    box-shadow: inset 0 0 12px 0 rgba(4, 160, 254, 0.4);
     border-radius: 4px;
     width: 8.69rem;
     height: 12.38rem;
@@ -380,21 +378,21 @@ export default {
     left: 61rem;
     top: 35rem;
   }
-  .img-style{
+  .img-style {
     margin-left: 1rem;
   }
-  .text-style{
+  .text-style {
     margin-left: 1rem;
     font-family: PingFangSC-Regular;
     font-size: 12px;
-    color: #BED7FA;
+    color: #bed7fa;
     letter-spacing: 0;
     line-height: 40px;
   }
-  .line-style{
+  .line-style {
     width: 0.21rem;
     height: 1.77rem;
-    border: 1.5px solid #FDE25C;
+    border: 1.5px solid #fde25c;
     border-radius: 4px;
     float: left;
     margin: 1rem 0.5rem 0rem 1.55rem;
