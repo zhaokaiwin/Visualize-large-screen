@@ -11,7 +11,7 @@
     "@jiaminghi/data-view": "^2.7.3",
     "@types/echarts": "^4.4.3",
     "@vue/cli-shared-utils": "^4.4.6",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "core-js": "^3.6.4",
     "echarts": "^4.6.0",
     "esri-loader": "^2.10.0",
